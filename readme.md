@@ -7,6 +7,12 @@ This repository contains the implementation of **SpherePair** and several baseli
 
 We provide an `environment.yml` file to set up the environment.
 
+After downloading all the project files, navigate to the `experiment` directory and merge the data files by running:
+
+```bash
+python dataset_merge_split.py merge
+```
+
 ---
 
 ## Basic Usage
@@ -119,6 +125,7 @@ For broader experiments (using different datasets, constraint settings, model ve
   - For **SpherePair**, use `tool_pretrain_sphere.py`.
   - For **any other** autoencoder-based models, use `tool_pretrain_sdae.py`.
 - Intermediate files, logs, and results will appear under `experiment/exp_{expName}/lab_{modelVersion}/{dataset}/{consRule}/`.
+- When running `python run_model_Sphere_Kmeans.py`, you can specify `--omega` and `--dim` to try different parameter combinations. However, if you use pre-trained weights, ensure that the `--dim` specified during pretraining matches the one during training.
 
 Below are examples of hyperparameter tuning for **AutoEmbedder** and **VolMaxDCC**.
 
@@ -184,3 +191,6 @@ do
 done
 ```
 </details>
+
+
+
