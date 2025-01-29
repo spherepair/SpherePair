@@ -1,29 +1,38 @@
-
 # SpherePair
 
-This repository contains the implementation of **SpherePair** and several baseline models for Deep Constrained Clustering (DCC). You can run experiments on various datasets with either balanced or imbalanced constraints, optionally with pretraining.
+This repository contains the implementation of **SpherePair** and several baseline models for Deep Constrained Clustering (DCC).
 
----
+**SpherePair** is an anchor-free DCC approach that employs a cosine similarity-based pairwise loss, learning clustering-friendly representations in an angular space and naturally leading to spherical embeddings. 
 
-We provide an `environment.yml` file to set up the environment.
+In the examples below, which involve subsets of the Reuters dataset, we set the embedding dimension to $D=3$ and use the negative-zone factor $\omega = \pi / \arccos\bigl(-\frac{1}{K-1}\bigr)$ to ensure equidistant separation on a unit sphere. Each animation shows the training evolution for subsets of the Reuters dataset with different numbers of clusters $(K=2, 3, 4)$.
 
-After downloading all the project files, navigate to the `experiment` directory and merge the data files by running:
-
-```bash
-python dataset_merge_split.py merge
-```
+<p align="center">
+  <img src="images/reuters_sub2.gif" width="200" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="images/reuters_sub3.gif" width="200" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="images/reuters_sub4.gif" width="200" />
+</p>
 
 ---
 
 ## Basic Usage
 
-A typical flow for experiments is:
+We provide an `environment.yml` file to set up the environment.  
+You can run **SpherePair** and various **baseline models** (VanillaDCC, VolMaxDCC, CIDEC, SDEC, AutoEmbedder) on multiple datasets, using either **balanced** or **imbalanced** constraints, optionally with **pretraining**. 
 
-1. (Optional) **Pretrain** an autoencoder if needed by the model (e.g., SpherePair with `--use_pretrain=True`).
-2. **Generate** a constraint set via `tool_createCons.py` (balanced or imbalanced).
-3. **Run** the desired model script (e.g., `run_model_Sphere_Kmeans.py`) to train and evaluate clustering performance.
+1. **Data Preparation**  
+   After downloading all project files, navigate to the `experiment` directory and merge the pre-sliced data (which are already preprocessed/vectorized according to our paper) by running:
+   ```bash
+   python dataset_merge_split.py merge
+   ```
+   This command reconstructs the complete dataset files for your experiments.
 
-You can adapt the scripts to different datasets (`mnist`, `fmnist`, `reuters`, `cifar10`, `stl10`, `imagenet10`, `cifar100`), different models, and different constraint sizes or rules.
+2. **Experiment Flow**  
+   A typical flow for running SpherePair or baselines is as follows:
+   1. *(Optional)* **Pretrain** an autoencoder if needed by the model (e.g., SpherePair with `--use_pretrain "True"`).
+   2. **Generate** a constraint set via `tool_createCons.py` (balanced or imbalanced).
+   3. **Run** the corresponding model script (e.g., `run_model_Sphere_Kmeans.py`) to train and evaluate clustering performance.
+
+You can adapt the scripts to different datasets (`mnist`, `fmnist`, `reuters`, `cifar10`, `stl10`, `imagenet10`, `cifar100`), different constraint sizes/rules, or different model versions.
 
 > **Note**: Logs and intermediate outputs are typically stored under `experiment/exp_{expName}/lab_{modelVersion}/{dataset}/{consRule}/`.
 
