@@ -84,7 +84,7 @@ python tool_pretrain_sphere.py --dataset "fmnist"
 
 # Generate imbalanced constraints for train (extraCLs)
 python tool_createCons.py --dataset "fmnist" --consRule "extraCLs" --set "train" \
-    --orig_num "1000" --extra_num "9000" --J "10" --imbCluster "0" \
+    --orig_num "10000" --extra_num "90000" --J "10" --imbCluster "0" \
     --modelVersion "Sphere_Kmeans_Pretrain" --expName "demo"
 
 # Run (pretrained)
@@ -99,7 +99,7 @@ python run_model_Sphere_Kmeans.py --dataset "fmnist" --consRule "extraCLs" --con
 ```bash
 # Same approach but modelVersion="Sphere_Kmeans_noPretrain" and use_pretrain="False"
 python tool_createCons.py --dataset "fmnist" --consRule "extraCLs" --set "train" \
-    --orig_num "1000" --extra_num "9000" --J "10" --imbCluster "0" \
+    --orig_num "10000" --extra_num "90000" --J "10" --imbCluster "0" \
     --modelVersion "Sphere_Kmeans_noPretrain" --expName "demo"
 
 python run_model_Sphere_Kmeans.py --dataset "fmnist" --consRule "extraCLs" --consIndex "10" \
